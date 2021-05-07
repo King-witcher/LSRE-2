@@ -94,34 +94,6 @@ namespace LSRE2
         public double ExpectedResult(Player opponent) =>
             Q / (Q + opponent.Q);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="history"></param>
-        /// <param name="lsr"></param>
-        /// <returns></returns>
-        public double GetLikelihoodLSR(History history, double lsr)
-        {
-            var losers = from Match match in history
-                         where match.winner == this
-                         select match.loser;
-
-            var winners = from Match match in history
-                          where match.loser == this
-                          select match.winner;
-
-            double q = Math.Exp(lsr);
-            double π = 1.0;
-
-            foreach (var loser in losers)
-                π *= q / (q + loser.Q);
-            foreach (var winner in winners)
-                π *= winner.Q / (q + winner.Q);
-
-            return π;
-        }
-
-
         internal double GetLikelihoodQ(History history, double q)
         {
             var losers = from Match match in history

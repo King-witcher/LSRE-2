@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace LSRE2
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
@@ -16,6 +16,8 @@ namespace LSRE2
 
             pb.RandomizeRatings(-3, 3, 2);
             pb.EstimateRatings(hs, 3);
+
+            string[,] a;
 
             var query = from player in pb
                         orderby player.LSR descending

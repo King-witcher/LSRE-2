@@ -6,7 +6,7 @@ using System.Text;
 namespace LSRE2
 {
     /// <summary>
-    ///     Represents a set of matches.
+    /// Represents a set of matches.
     /// </summary>
     public class History : IEnumerable<Match>
     {
@@ -18,7 +18,7 @@ namespace LSRE2
         }
 
         /// <summary>
-        ///     Gets an ew instance of history given a CSV list and a given playerbase.
+        /// Gets an ew instance of history given a CSV list and a given playerbase.
         /// </summary>
         /// <param name="playerbase"></param>
         /// <param name="csv"></param>

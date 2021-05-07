@@ -7,19 +7,19 @@ using System.Text;
 namespace LSRE2
 {
     /// <summary>
-    ///     Represents a CSV table. 
+    /// Represents a CSV table. 
     /// </summary>
     public class CSV : IEnumerable<string[]>
     {
         List<string[]> lines;
 
         /// <summary>
-        ///     How many lines the CSV has.
+        /// How many lines the CSV has.
         /// </summary>
         public int Lines => lines.Count;
 
         /// <summary>
-        ///     Imports a new instance of CSV given a csv file.
+        /// Imports a new instance of CSV given a csv file.
         /// </summary>
         /// <param name="path"></param>
         /// <param name="sep">Column separator</param>
@@ -39,7 +39,7 @@ namespace LSRE2
         }
 
         /// <summary>
-        ///     Gets a new instance of CSV given a table.
+        /// Gets a new instance of CSV given a table.
         /// </summary>
         /// <param name="lines"></param>
         public CSV(IEnumerable<string[]> lines)
@@ -50,7 +50,7 @@ namespace LSRE2
         }
 
         /// <summary>
-        ///     Gets a new instance of CSV given a table.
+        /// Gets a new instance of CSV given a table.
         /// </summary>
         /// <param name="lines"></param>
         public CSV(IEnumerable<IEnumerable<string>> lines)
@@ -66,7 +66,7 @@ namespace LSRE2
         }
 
         /// <summary>
-        ///     Exports the CSV to the file system.
+        /// Exports the CSV to the file system.
         /// </summary>
         /// <param name="path">Column separator</param>
         public void Export(string path, char sep = ';')
