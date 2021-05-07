@@ -1,6 +1,7 @@
 ﻿using System;
 using LSRE2_API;
 using System.Linq;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace LSRE_2
@@ -15,15 +16,20 @@ namespace LSRE_2
             var pb = new PlayerBase(pbcsv);
             var hs = new History(pb, hscsv);
 
-            pb.EstimateRatings(hs);
+            pb.RandomizeRatings(-3, 3, 2);
+            pb.EstimateRatings(hs, 3);
 
             var query = from player in pb
                         orderby player.LSR descending
-                        select new { player.Name, player.Elo };
+                        select ( player.Name, Math.Round(player.Elo), Math.Round(100 * player.P0) );
 
-            foreach (var item in query)
+            var matrix = from player1 in pb
+                         orderby player1.LSR descending
+                         select player1.Name;
+
+            foreach (var line in query)
             {
-                Console.WriteLine(item);
+                Console.WriteLine(line);
             }
         }
     }

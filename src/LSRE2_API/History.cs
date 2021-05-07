@@ -7,6 +7,9 @@ using System.Text;
 
 namespace LSRE2_API
 {
+    /// <summary>
+    ///     Represents a set of matches.
+    /// </summary>
     public class History : IEnumerable<Match>
     {
         List<Match> matches;
@@ -16,6 +19,11 @@ namespace LSRE2_API
             matches = new List<Match>(count);
         }
 
+        /// <summary>
+        ///     Gets an ew instance of history given a CSV list and a given playerbase.
+        /// </summary>
+        /// <param name="playerbase"></param>
+        /// <param name="csv"></param>
         public History(PlayerBase playerbase, CSV csv)
         {
             matches = new List<Match>(csv.Lines);
@@ -28,23 +36,28 @@ namespace LSRE2_API
             }
         }
 
-        private double GetLikelihood()
+        /// <summary>
+        /// Create a new random set of matches between the players of a given PlayerBase.
+        /// </summary>
+        /// <param name="playerBase">PlayerBase</param>
+        /// <param name="matches">How many matches sould be created</param>
+        /// <param name="seed">The RNG seed if not null; otherwise the random seed will be random.</param>
+        /// <returns>A new random set of matches between the players of a given PlayerBase</returns>
+        public static History CreateRandom(PlayerBase playerBase, int matches, int? seed = null)
         {
-            double π = 1.0;
-            foreach (var match in matches)
-                π *= match.GetLikelihood();
-            return π;
-        }
+            Random rnd;
+            if (seed is int value)
+                rnd = new Random(value);
+            else
+                rnd = new Random();
 
-        private static History CreateRandom(PlayerBase set, int matches, Random rnd)
-        {
             History hist = new History(matches);
 
             for (int i = 0; i < matches; i++)
             {
-                Player winner = set[rnd.Next(0, set.Count)];
+                Player winner = playerBase[rnd.Next(0, playerBase.Count)];
                 Player loser;
-                while ((loser = set[rnd.Next(0, set.Count)]) == winner)
+                while ((loser = playerBase[rnd.Next(0, playerBase.Count)]) == winner)
                     ;
                 Match match = new Match(loser, winner);
                 hist.matches.Add(match);
@@ -52,12 +65,6 @@ namespace LSRE2_API
 
             return hist;
         }
-
-        public static History CreateRandom(PlayerBase set, int matches) =>
-            CreateRandom(set, matches, new Random());
-
-        public static History CreateRandom(PlayerBase playerbase, int matches, int seed) =>
-            CreateRandom(playerbase, matches, new Random(seed));
 
         public override string ToString()
         {
