@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
 
-namespace LSRE2_API
+namespace LSRE2
 {
     /// <summary>
     ///     Represents a set of matches.

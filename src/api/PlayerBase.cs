@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections;
-using System.Linq;
-using System.Text;
 
-namespace LSRE2_API
+namespace LSRE2
 {
     /// <summary>
     /// Represents a set of players and it's corresonding aliases.

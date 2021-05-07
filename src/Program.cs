@@ -1,17 +1,15 @@
 ﻿using System;
-using LSRE2_API;
 using System.Linq;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
-namespace LSRE_2
+namespace LSRE2
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
-            var pbcsv = new CSV(@"..\..\..\..\csv\qpl_1_3_pb.csv");
-            var hscsv = new CSV(@"..\..\..\..\csv\qpl_1_3_hs.csv");
+            var pbcsv = new CSV(@"..\..\csv\qpl_1_3_pb.csv");
+            var hscsv = new CSV(@"..\..\csv\qpl_1_3_hs.csv");
 
             var pb = new PlayerBase(pbcsv);
             var hs = new History(pb, hscsv);

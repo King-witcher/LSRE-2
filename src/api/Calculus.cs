@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace LSRE2_API
+namespace LSRE2
 {
     internal static class Calculus
     {

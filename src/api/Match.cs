@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LSRE2_API
+namespace LSRE2
 {
     public class Match
     {

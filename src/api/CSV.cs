@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace LSRE2_API
+namespace LSRE2
 {
     /// <summary>
     ///     Represents a CSV table. 
