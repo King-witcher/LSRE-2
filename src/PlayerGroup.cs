@@ -7,10 +7,10 @@ namespace LSRE2
     /// <summary>
     /// Represents a set of players and it's corresonding aliases.
     /// </summary>
-    public class PlayerBase : IEnumerable<Player>
+    public class PlayerGroup : IEnumerable<Player>
     {
         List<Player> players;
-        Dictionary<string, Player> aliases = new Dictionary<string, Player>();
+        Dictionary<string, Player> aliases;
 
         /// <summary>
         /// Gets an instance of player given it's alias.
@@ -20,38 +20,46 @@ namespace LSRE2
         public Player this[string alias] => aliases[alias];
 
         /// <summary>
-        /// Gets the player count in this playerbase.
+        /// Gets the player count in this PlayerGroup.
         /// </summary>
         public int Count => players.Count;
 
-        private PlayerBase(int count)
-        {
-            players = new List<Player>(count);
-        }
 
         /// <summary>
-        /// Gets a new instance of PlayerBase given a CSV.
+        /// Gets a new instance of PlayerGroup given a CSV.
         /// </summary>
         /// <remarks>
         /// First column of the csv represents the player names, and the second column represents it's corresponding aliases.
         /// </remarks>
         /// <param name="csv"></param>
-        public PlayerBase(CSV csv)
+        public PlayerGroup(CSV csv) : this(csv.Lines)
         {
-            players = new List<Player>(csv.Lines);
             foreach (string[] line in csv)
                 AddPlayer(new Player(line[0]), line[1]);
         }
 
         /// <summary>
-        /// Gets an instance of Player from the PlayerBase by index.
+        /// Cria uma nova instância de PlayerGroup vazia.
+        /// </summary>
+        /// <param name="count">Capacidade inicial de jogadores. Caso seja nulo, o limite inicial será 20.</param>
+        public PlayerGroup(int? count = null)
+        {
+            if (count is int n)
+                players = new List<Player>(n);
+            else
+                players = new List<Player>(20);
+            aliases = new Dictionary<string, Player>();
+        }
+
+        /// <summary>
+        /// Gets an instance of Player from the PlayerGroup by index.
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
         public Player this[int index] => players[index];
 
         /// <summary>
-        /// Adds a new player to the PlayerBase and binds it to an alias.
+        /// Adds a new player to the PlayerGroup and binds it to an alias.
         /// </summary>
         /// <param name="player">Player</param>
         /// <param name="alias">Alias</param>
@@ -75,13 +83,29 @@ namespace LSRE2
         }
 
         /// <summary>
-        /// Gets a new instance of n PlayerBase with players named as Player1 ... PlayerN.
+        /// Obém o jogador associado ao apelido especificado.
+        /// </summary>
+        /// <param name="alias">O apelido da instância a ser obtida.</param>
+        /// <returns>O jogador associado ao apelido especificado.</returns>
+        public Player GetPlayer(string alias)
+        {
+            if (aliases.TryGetValue(alias, out Player p))
+                return p;
+            else
+                return null;
+        }
+
+        internal bool Contains(string alias) =>
+            aliases.ContainsKey(alias);
+
+        /// <summary>
+        /// Gets a new instance of n PlayerGroup with players named as Player1 ... PlayerN.
         /// </summary>
         /// <param name="n">How many players</param>
-        /// <returns>A new instance of n PlayerBase with players named as Player1 ... PlayerN</returns>
-        public static PlayerBase Create(int n)
+        /// <returns>A new instance of n PlayerGroup with players named as Player1 ... PlayerN</returns>
+        public static PlayerGroup Create(int n)
         {
-            PlayerBase pb = new PlayerBase(n);
+            PlayerGroup pb = new PlayerGroup(n);
 
             for (int i = 0; i < n; i++)
             {
@@ -93,7 +117,7 @@ namespace LSRE2
         }
 
         /// <summary>
-        /// Runs an algorithm that estimates the rating of each player in the PlayerBase given a history of matches.
+        /// Runs an algorithm that estimates the rating of each player in the PlayerGroup given a history of matches.
         /// </summary>
         /// <param name="history">History of games</param>
         /// <param name="iterations">How many times the approximation algorithm should run</param>

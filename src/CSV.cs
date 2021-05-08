@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using System.IO;
 
 namespace LSRE2
@@ -8,9 +9,9 @@ namespace LSRE2
     /// <summary>
     /// Represents a CSV table. 
     /// </summary>
-    public class CSV : IEnumerable<string[]>
+    public class CSV : IEnumerable<IEnumerable<string>>
     {
-        List<string[]> lines;
+        List<List<string>> lines;
 
         /// <summary>
         /// How many lines the CSV has.
@@ -22,53 +23,51 @@ namespace LSRE2
         /// </summary>
         /// <param name="path"></param>
         /// <param name="sep">Column separator</param>
-        public CSV(string path, char sep = ';')
+        public CSV(string path, char sep = ',')
         {
-            var sr = new StreamReader(path);
-            lines = new List<string[]>();
-
-            while (!sr.EndOfStream)
+            using (StreamReader reader = new StreamReader(path))
             {
-                string line = sr.ReadLine();
-                string[] linesep = line.Split(sep);
-                lines.Add(linesep);
+                string[] lineArray = reader.ReadToEnd().Split('\r');
+                this.lines = new List<List<string>>(lineArray.Length);
+                foreach (var line in lineArray)
+                    this.lines.Add(new List<string>(line.Split(sep)));
             }
-
-            sr.Close();
         }
 
         /// <summary>
         /// Gets a new instance of CSV given a table.
         /// </summary>
-        /// <param name="lines"></param>
-        public CSV(IEnumerable<string[]> lines)
+        /// <param name="matrix"></param>
+        public CSV(IEnumerable<string[]> matrix)
         {
-            this.lines = new List<string[]>();
-            foreach (var line in lines)
-                this.lines.Add(line);
+            this.lines = new List<List<string>>();
+            foreach (var line in matrix)
+                new List<string>(line);
         }
 
         /// <summary>
         /// Gets a new instance of CSV given a table.
         /// </summary>
-        /// <param name="lines"></param>
-        public CSV(IEnumerable<IEnumerable<string>> lines)
+        /// <param name="matrix">Table lines</param>
+        public CSV(IEnumerable<IEnumerable<string>> matrix)
         {
-            this.lines = new List<string[]>();
-            foreach (var line in lines)
-            {
-                var list = new List<string>();
-                foreach (var obj in line)
-                    list.Add(obj.ToString());
-                this.lines.Add(list.ToArray());
-            }
+            this.lines = new List<List<string>>();
+            foreach (var line in matrix)
+                new List<string>(line);
         }
+
+        internal CSV(List<List<string>> matrix)
+		{
+            lines = matrix;
+		}
+
 
         /// <summary>
         /// Exports the CSV to the file system.
         /// </summary>
-        /// <param name="path">Column separator</param>
-        public void Export(string path, char sep = ';')
+        /// <param name="path">Output path</param>
+        /// <param name="sep">Column separator</param>
+        public void Export(string path, char sep = ',')
         {
             using (StreamWriter sw = new StreamWriter(path))
                 foreach (var line in lines)
@@ -79,7 +78,20 @@ namespace LSRE2
                 }
         }
 
-        public IEnumerator<string[]> GetEnumerator() => lines.GetEnumerator();
+		public override string ToString()
+		{
+            StringBuilder sb = new StringBuilder();
+            foreach(var line in lines)
+			{
+                foreach (var attr in line)
+                    sb.Append(attr + '\t');
+                sb.AppendLine();
+			}
+            return sb.ToString();
+		}
+
+		public IEnumerator<IEnumerable<string>> GetEnumerator() => lines.GetEnumerator();
+
         IEnumerator IEnumerable.GetEnumerator() =>lines.GetEnumerator();
     }
 }

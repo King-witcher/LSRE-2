@@ -1,0 +1,25 @@
+
+- PlayerGroup pode identificar clusters de
+  jogadores que jogaram entre si ou não?
+
+- Traduzir TUDO.
+
+- Criar uma Wiki ensinando a usar.
+
+- Criar um software exemplo que usa a
+  biblioteca.
+
+- Finalizar esse projeto, pelo amor de deus.
+
+-----------------------------------------------
+
+- History deve ser capaz de gerar uma
+  PlayerGroup sozinho caso não lhe seja
+  informada.
+
+- Gerar automaticamente uma matriz de
+  probabilidades em PlayerGroup.
+  Na verdade não era uma boa ideia.
+
+- History precisa ter uma referência a uma
+  PlayerGroup.

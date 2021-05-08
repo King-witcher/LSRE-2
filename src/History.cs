@@ -11,6 +11,7 @@ namespace LSRE2
     public class History : IEnumerable<Match>
     {
         List<Match> matches;
+        PlayerGroup playerGroup;
 
         private History(int count)
         {
@@ -18,30 +19,67 @@ namespace LSRE2
         }
 
         /// <summary>
-        /// Gets an ew instance of history given a CSV list and a given playerbase.
+        /// Gets an ew instance of history given a CSV list and a given PlayerGroup.
         /// </summary>
-        /// <param name="playerbase"></param>
+        /// <param name="PlayerGroup"></param>
         /// <param name="csv"></param>
-        public History(PlayerBase playerbase, CSV csv)
+        public History(PlayerGroup PlayerGroup, CSV csv)
         {
             matches = new List<Match>(csv.Lines);
-            foreach (string[] line in csv)
+            foreach (List<string> line in csv)
             {
-                Player winner = playerbase[line[0]];
-                Player loser = playerbase[line[1]];
+                Player winner = PlayerGroup[line[0]];
+                Player loser = PlayerGroup[line[1]];
                 Match match = new Match(loser, winner);
                 matches.Add(match);
             }
         }
 
         /// <summary>
-        /// Create a new random set of matches between the players of a given PlayerBase.
+        /// Obt[em uma nova instância de histórico dado uma instância de CSV.
         /// </summary>
-        /// <param name="playerBase">PlayerBase</param>
-        /// <param name="matches">How many matches sould be created</param>
-        /// <param name="seed">The RNG seed if not null; otherwise the random seed will be random.</param>
-        /// <returns>A new random set of matches between the players of a given PlayerBase</returns>
-        public static History CreateRandom(PlayerBase playerBase, int matches, int? seed = null)
+        /// <param name="csv">A instâncica de CSV contendo o histórico de partidas.</param>
+        public History(CSV csv)
+        {
+            PlayerGroup group = new PlayerGroup();
+            List<Match> matches = new List<Match>(csv.Lines);
+            void addPlayer(string name)
+            {
+                Player p = new Player(name);
+                group.AddPlayer(p, name);
+            }
+
+            foreach (List<string> line in csv)
+            {
+                string loserName = line[0],
+                    winnerName = line[1];
+
+                if (!group.Contains(loserName))
+                    addPlayer(loserName);
+                if (!group.Contains(winnerName))
+                    addPlayer(winnerName);
+
+                Match match = new Match(group.GetPlayer(loserName), group.GetPlayer(winnerName));
+                matches.Add(match);
+            }
+
+            this.playerGroup = group;
+            this.matches = matches;
+        }
+
+        /// <summary>
+        /// Obtém a instância de PlayerGroup referente ao histórico.
+        /// </summary>
+        public PlayerGroup PlayerGroup => PlayerGroup;
+
+        /// <summary>
+        /// Cria um novo conjunto aleatório de partidas entre os jogadores de uma PlayerGroup.
+        /// </summary>
+        /// <param name="PlayerGroup">PlayerGroup</param>
+        /// <param name="matches">Quantas partidas deverão ser simuladas</param>
+        /// <param name="seed">A semente de geração de números aleatórios. Caso seja null, uma semente aleatória será criada.</param>
+        /// <returns>Um novo conjunto aleatório de partidas entre os jogadores de uma PlayerGroup.</returns>
+        public static History CreateRandom(PlayerGroup PlayerGroup, int matches, int? seed = null)
         {
             Random rnd;
             if (seed is int value)
@@ -53,9 +91,9 @@ namespace LSRE2
 
             for (int i = 0; i < matches; i++)
             {
-                Player winner = playerBase[rnd.Next(0, playerBase.Count)];
+                Player winner = PlayerGroup[rnd.Next(0, PlayerGroup.Count)];
                 Player loser;
-                while ((loser = playerBase[rnd.Next(0, playerBase.Count)]) == winner)
+                while ((loser = PlayerGroup[rnd.Next(0, PlayerGroup.Count)]) == winner)
                     ;
                 Match match = new Match(loser, winner);
                 hist.matches.Add(match);
