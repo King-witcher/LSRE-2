@@ -1,0 +1,16 @@
+
+- Gerar automaticamente uma matriz de probabilidades em PlayerBase.
+
+- History precisa ter uma referência a uma PlayerBase.
+
+- History deve ser capaz de gerar uma PlayerBase sozinho caso não lhe seja informada.
+
+- PlayerBase pode identificar clusters de jogadores que jogaram entre si ou não?
+
+- Traduzir TUDO.
+
+- Criar uma Wiki ensinando a usar.
+
+- Criar um software exemplo que usa a biblioteca.
+
+- Finalizar esse projeto, pelo amor de deus.
