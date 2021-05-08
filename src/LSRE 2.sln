@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LSRE 2", "LSRE 2.csproj", "{27DC7CBB-0B8C-4F15-B5A6-86F5B6B35556}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LSRE 2", "LSRE 2.csproj", "{C6D36CB1-6C1F-4342-BCBD-A5DCD1DBFC78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{27DC7CBB-0B8C-4F15-B5A6-86F5B6B35556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{27DC7CBB-0B8C-4F15-B5A6-86F5B6B35556}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{27DC7CBB-0B8C-4F15-B5A6-86F5B6B35556}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{27DC7CBB-0B8C-4F15-B5A6-86F5B6B35556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6D36CB1-6C1F-4342-BCBD-A5DCD1DBFC78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6D36CB1-6C1F-4342-BCBD-A5DCD1DBFC78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6D36CB1-6C1F-4342-BCBD-A5DCD1DBFC78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6D36CB1-6C1F-4342-BCBD-A5DCD1DBFC78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {06FCECDF-DC6B-42D1-B285-407BB18DEFE1}
+		SolutionGuid = {3E27311E-8DC2-4C98-A353-58113279D128}
 	EndGlobalSection
 EndGlobal
