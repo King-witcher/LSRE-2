@@ -21,9 +21,10 @@ Você pode referenciar tanto o arquivo DLL compilado quanto o projeto do LSRE se
 
 Essa versão do LSRE está escrita em C# é projetada para o ecossistema .NET Framework 4.7.2; no entanto, pode ser facilmente adaptado para outros ecossistemas do .NET sem muitas adaptações de código.
 
-A documentação da biblioteca está disponível em https://king-witcher.github.io/lsre-2/.
+A documentação da biblioteca está disponível em https://King-witcher.github.io/LSRE-2/.
 
 Giuseppe Lanna
+
 07-05-2021
 
 > Written with [StackEdit](https://stackedit.io/).
