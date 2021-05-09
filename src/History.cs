@@ -51,8 +51,11 @@ namespace LSRE2
 
             foreach (List<string> line in csv)
             {
-                string loserName = line[0],
-                    winnerName = line[1];
+                if (line.Count < 2)
+                    continue;
+
+                string winnerName = line[0],
+                    loserName = line[1];
 
                 if (!group.Contains(loserName))
                     addPlayer(loserName);
@@ -70,7 +73,7 @@ namespace LSRE2
         /// <summary>
         /// Obtém a instância de PlayerGroup referente ao histórico.
         /// </summary>
-        public PlayerGroup PlayerGroup => PlayerGroup;
+        public PlayerGroup PlayerGroup => playerGroup;
 
         /// <summary>
         /// Cria um novo conjunto aleatório de partidas entre os jogadores de uma PlayerGroup.

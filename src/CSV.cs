@@ -27,7 +27,7 @@ namespace LSRE2
         {
             using (StreamReader reader = new StreamReader(path))
             {
-                string[] lineArray = reader.ReadToEnd().Split('\r');
+                string[] lineArray = reader.ReadToEnd().Split('\n');
                 this.lines = new List<List<string>>(lineArray.Length);
                 foreach (var line in lineArray)
                     this.lines.Add(new List<string>(line.Split(sep)));
